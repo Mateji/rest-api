@@ -1,20 +1,25 @@
 var express = require('express'),
+    app = require('./app'),
     router = express.Router(),
-    User = require('./UserSchema');
+    jwt = require('jsonwebtoken'),
+    User = require('./UserSchema'),
+    passwordHash = require('password-hash');
 
 router.post('/authenticate', function (req, res) {
+
     User.findOne({
         name: req.body.name
-    }, function (err, user) function(err, user) {
+    }, function (err, user) {
 
-        if (err) throw err;
-
+        if (err) {
+            throw err;
+        }
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
 
             // check if password matches
-            if (user.password != req.body.password) {
+            if (!passwordHash.verify(req.body.password, user.password)) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
 
@@ -25,7 +30,7 @@ router.post('/authenticate', function (req, res) {
                     admin: user.admin
                 };
                 var token = jwt.sign(payload, app.get('superSecret'), {
-                    expiresInMinutes: 1440 // expires in 24 hours
+                    expiresIn: '24h' // expires in 24 hours
                 });
 
                 // return the information including token as JSON
