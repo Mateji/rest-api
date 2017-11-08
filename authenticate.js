@@ -2,7 +2,7 @@ var express = require('express'),
     app = require('./app'),
     router = express.Router(),
     jwt = require('jsonwebtoken'),
-    User = require('./UserSchema'),
+    User = require('./Schema/UserSchema'),
     passwordHash = require('password-hash');
 
 router.post('/authenticate', function (req, res) {

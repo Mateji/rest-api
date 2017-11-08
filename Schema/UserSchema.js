@@ -1,4 +1,9 @@
+/**
+* @author Maté 'Mateji' Intemann <mate.intemann@gmail.com>
+*/
+
 'use strict';
+
 var mongoose = require('mongoose');
 var passwordHash = require('password-hash');
 
@@ -6,7 +11,10 @@ var UserSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    admin: Boolean
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group'
+    }
 });
 
 UserSchema.pre('save', function(next) {

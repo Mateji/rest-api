@@ -5,8 +5,8 @@ var express = require('express'),
     morgan = require('morgan'),
     mongoose = require('mongoose'),
     config = require('./config'),
-    User = require('./UserSchema'),
-    UserController = require('./UserController'),
+    UserController = require('./Controllers/UserController'),
+    GroupController = require('./Controllers/GroupController'),
     authenticate = require('./authenticate'),
     apiRoutes = express.Router(),
     jwt = require('jsonwebtoken');
@@ -43,6 +43,7 @@ apiRoutes.use(function(req, res, next) {
 });
 app.use('/', apiRoutes);
 app.use('/users', UserController);
+app.use('/groups', GroupController);
 
 
 app.use(morgan('dev'));
