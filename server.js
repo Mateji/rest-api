@@ -25,7 +25,7 @@ app.use(cors());
 app.use('/', authenticate);
 
 apiRoutes.use(function(req, res, next) {
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.headers.authorization.substring(7);
 
     if (token) {
 
