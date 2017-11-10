@@ -9,7 +9,8 @@ var express = require('express'),
     GroupController = require('./Controllers/GroupController'),
     authenticate = require('./authenticate'),
     apiRoutes = express.Router(),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    cors = require('cors');
 
 // config
 var port = process.env.PORT || 3000;
@@ -18,6 +19,8 @@ app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(cors());
 
 app.use('/', authenticate);
 
