@@ -1,4 +1,9 @@
+/**
+* @author Maté 'Mateji' Intemann <mate.intemann@gmail.com>
+*/
+
 'use strict';
+
 var express = require('express'),
     app = require('./app'),
     bodyParser = require('body-parser'),
@@ -7,6 +12,7 @@ var express = require('express'),
     config = require('./config'),
     UserController = require('./Controllers/UserController'),
     GroupController = require('./Controllers/GroupController'),
+    ArticleController = require('./Controllers/ArticleController'),
     authenticate = require('./authenticate'),
     apiRoutes = express.Router(),
     jwt = require('jsonwebtoken'),
@@ -47,6 +53,7 @@ apiRoutes.use(function(req, res, next) {
 app.use('/', apiRoutes);
 app.use('/users', UserController);
 app.use('/groups', GroupController);
+app.use('/articles', ArticleController);
 
 
 app.use(morgan('dev'));

@@ -1,3 +1,9 @@
+/**
+* @author Maté 'Mateji' Intemann <mate.intemann@gmail.com>
+*/
+
+'use strict';
+
 var express = require('express'),
     app = require('./app'),
     router = express.Router(),
@@ -37,7 +43,8 @@ router.post('/authenticate', function (req, res) {
                 res.json({
                     success: true,
                     message: 'Enjoy your token!',
-                    token: token
+                    token: token,
+                    name: user.name
                 });
             }
 

@@ -8,9 +8,18 @@ var mongoose = require('mongoose');
 var passwordHash = require('password-hash');
 
 var UserSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
     group: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group'
