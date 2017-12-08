@@ -31,6 +31,14 @@ app.use(cors());
 app.use('/', authenticate);
 
 apiRoutes.use(function(req, res, next) {
+
+    if (req.headers.authorization == null) {
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+    }
+
     var token = req.headers.authorization.substring(7);
 
     if (token) {
