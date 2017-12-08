@@ -19,7 +19,7 @@ var express = require('express'),
     cors = require('cors');
 
 // config
-var port = process.env.PORT || 3000;
+var port = 64444;
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
