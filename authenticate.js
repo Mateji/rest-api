@@ -44,7 +44,8 @@ router.post('/authenticate', function (req, res) {
                     success: true,
                     message: 'Enjoy your token!',
                     token: token,
-                    name: user.name
+                    name: user.name,
+                    group: user.group
                 });
             }
 
