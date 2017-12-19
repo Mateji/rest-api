@@ -16,12 +16,15 @@ var express = require('express'),
     authenticate = require('./authenticate'),
     apiRoutes = express.Router(),
     jwt = require('jsonwebtoken'),
-    cors = require('cors');
+    cors = require('cors'),
+    authorize = require('./authorize');
 
 // config
 var port = 64444;
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
+
+app.use(morgan('combined'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -59,12 +62,12 @@ apiRoutes.use(function(req, res, next) {
     }
 });
 app.use('/', apiRoutes);
-app.use('/users', UserController);
+app.use('/users', authorize.andRestrictTo('admin'), UserController);
 app.use('/groups', GroupController);
 app.use('/articles', ArticleController);
 
 
-app.use(morgan('dev'));
+
 
 var server = app.listen(port, function () {
     console.log('Express server listening on port', port);
